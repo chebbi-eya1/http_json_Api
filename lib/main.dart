@@ -37,8 +37,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-final String url='http://10.0.2.2:3000/courses';
-List<dynamic> _courses =[];
+//final String url='http://10.0.2.2:3000/courses';
+  final String url='  https://my-json-server.typicode.com/chebbi-eya1/http_json_Api/courses';
+
+  List<dynamic> _courses =[];
 bool loading = true;
 
 @override
@@ -49,7 +51,7 @@ void initState(){
 
 Future<void> getCourses() async {
   var reponse = await http.get(Uri.parse(url));
-  if(reponse.statusCode == 200 || reponse.statusCode == 304){
+  if(reponse.statusCode == 200 ){
     _courses =convert.jsonDecode(reponse.body);
     setState(() {
       loading = !loading;
@@ -94,9 +96,11 @@ Widget coursesList() {
   return Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
-        Text('Data ok ....'),
-        Padding(padding: EdgeInsets.only(bottom: 25)),
+      children:  <Widget>[
+        //Text('Data ok ....! ${_courses.length}'),
+        Text('Data ok ....! ${_courses[0]}'),
+
+        const Padding(padding: EdgeInsets.only(bottom: 25)),
       ],
     ),
   );
