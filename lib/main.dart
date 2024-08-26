@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:convert' as convert;
+import 'dart:convert' ;
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/painting.dart';
+import 'package:httpexemple/courses.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -52,8 +53,9 @@ void initState(){
 Future<void> getCourses() async {
   var reponse = await http.get(Uri.parse(url));
   if(reponse.statusCode == 200 ){
-    _courses =convert.jsonDecode(reponse.body);
-    setState(() {
+final parseddata = jsonDecode(reponse.body).cast<Map<String,dynamic>>();
+_courses = parseddata.map<courses>((json)=> courses.fromJson(json)).toList();
+setState(() {
       loading = !loading;
     });
   } else {
@@ -98,7 +100,7 @@ Widget coursesList() {
       mainAxisAlignment: MainAxisAlignment.center,
       children:  <Widget>[
         //Text('Data ok ....! ${_courses.length}'),
-        Text('Data ok ....! ${_courses[0]}'),
+        Text('Data ok ....! ${_courses[0].title}'),
 
         const Padding(padding: EdgeInsets.only(bottom: 25)),
       ],

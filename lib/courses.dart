@@ -9,6 +9,12 @@ class courses {
   String instructors;
   String language;
   int price;
-  courses(this.id,this.title,this.description,this.image,this.last_update,this.instructors,this.language,this.price);
+  courses({
+    required this.id,required this.title,required this.description, required this.image, required this.last_update,required  this.instructors,required this.language,required this.price
+  });
 
+
+  factory courses.fromJson(Map<String , dynamic> json){
+    return courses(id:json['id'], title:json['title'], description:json['description'], image:json['image'], last_update:json['last_update'], instructors:json['instructors'], language:json['language'], price:json['price']);
+  }
 }
